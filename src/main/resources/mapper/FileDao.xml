@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="org.cloudpan.dao.FileDao">
+    <select id="queryByMd5" resultType="File" parameterType="String">
+        select file_id,file_path,file_md5,file_size
+        from file
+        where file_md5 = #{fileMd5}
+    </select>
+    <insert id="addFile" parameterType="File">
+        INSERT ignore INTO file(file_path,file_md5,file_size) VALUES (
+        #{filePath},#{fileMd5},#{fileSize}
+        )
+    </insert>
+    <select id="queryById" resultType="File" parameterType="long">
+        select file_id,file_path,file_md5,file_size
+        from file
+        where file_id = #{fileId}
+    </select>
+    <select id="querySizeById" resultType="long" parameterType="long">
+        SELECT file_size
+        FROM file
+        WHERE file_id=#{fileId}
+    </select>
+</mapper>

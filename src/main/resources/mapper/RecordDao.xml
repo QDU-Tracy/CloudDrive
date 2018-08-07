@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="org.cloudpan.dao.RecordDao">
+    <insert id="addRecord" parameterType="Record">
+      INSERT ignore INTO record(user_id, file_id, custom_name, share, create_time, record_md5,file_type) VALUES (
+        #{userId},#{fileId},#{customName},#{share},#{createTime},#{recordMd5},#{fileType}
+      )
+    </insert>
+
+    <select id="queryAll" resultType="Record" parameterType="int">
+        SELECT record_id,user_id,file_id,custom_name,share,create_time
+        FROM record
+        ORDER BY create_time desc
+        limit #{offset},#{limit}
+    </select>
+
+    <delete id="deleteRecord" parameterType="long">
+        DELETE FROM record WHERE record_id=#{recordId}
+    </delete>
+
+    <update id="updateCustomName">
+        UPDATE record set custom_name=#{customName}
+        WHERE record_id=#{recordId}
+    </update>
+
+    <select id="queryByUserId" resultType="Record">
+        SELECT record_id,user_id,file_id,custom_name,share,create_time
+        FROM record
+        WHERE user_id=#{userId}
+        ORDER BY create_time desc
+        limit #{offset},#{limit}
+    </select>
+
+    <update id="updateShare">
+        UPDATE record set share=#{share}
+        WHERE record_id=#{recordId}
+    </update>
+
+    <select id="queryByRecordId" resultType="Record">
+        SELECT record_id,user_id,file_id,custom_name,share,create_time,record_md5,file_type
+        FROM record
+        WHERE record_id=#{recordId}
+    </select>
+
+    <select id="queryByRecordMd5" resultType="Record">
+        SELECT record_id,user_id,file_id,custom_name,share,create_time,record_md5,file_type
+        FROM record
+        WHERE record_md5=#{recordMd5}
+    </select>
+
+</mapper>

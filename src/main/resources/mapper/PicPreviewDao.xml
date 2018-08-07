@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="org.cloudpan.dao.PicPreviewDao">
+    <select id="queryOneByFileId" resultType="String" parameterType="long">
+        SELECT url
+        FROM pic_preview
+        WHERE file_id=#{fileId}
+    </select>
+
+    <insert id="addPicPreview" parameterType="PicPreview">
+        INSERT ignore INTO pic_preview(file_id,url) VALUES
+        (
+        #{fileId},#{url}
+        )
+    </insert>
+</mapper>

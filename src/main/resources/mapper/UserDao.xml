@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="org.cloudpan.dao.UserDao">
+    <insert id="addUser" parameterType="User">
+      INSERT ignore INTO user(user_phone,user_pwd) VALUES (
+        #{userPhone},#{userPwd}
+      )
+    </insert>
+
+    <select id="queryAll" resultType="User" parameterType="int">
+        select user_id,user_phone,user_name,user_pwd,isvip
+        from user
+        order by user_id desc
+        limit #{offset},#{limit}
+    </select>
+
+    <select id="queryOne" resultType="User">
+        SELECT user_id,user_phone,user_name,user_pwd,isvip
+        from user
+        where user_phone=#{userPhone} and user_pwd=#{userPwd}
+    </select>
+
+    <select id="queryUserId" resultType="long">
+        SELECT user_id
+        from user
+        where user_phone=#{userPhone}
+    </select>
+
+    <select id="queryIfUserExist" resultType="int">
+        SELECT COUNT(user_id)
+        FROM user
+        WHERE user_phone=#{userPhone}
+    </select>
+
+    <select id="queryNameById" parameterType="long" resultType="String">
+        SELECT user_name
+        FROM user
+        WHERE user_id=#{userId}
+    </select>
+</mapper>

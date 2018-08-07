@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CloudPan:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="cloudpan.war">
+      <element id="artifact" artifact-name="CloudPan:war exploded" />
+    </root>
+  </artifact>
+</component>
